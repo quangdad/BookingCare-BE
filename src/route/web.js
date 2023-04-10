@@ -3,14 +3,16 @@ import homeController from "../controllers/homeController";
 
 let router = express.Router();
 let initWebRoutes = (app) => {
-    router.get("/", homeController.getHomePage);
-    router.get("/about", homeController.getaboutPage);
-    
-    router.get("/home", (req, res) => {
-        return res.send("Welcome");
-    });
+  router.get("/", homeController.getHomePage);
+  router.get("/about", homeController.getaboutPage);
+  router.get("/crud", homeController.getCRUD);
+  router.post("/crud-post", homeController.postCRUD);
 
-    return app.use("/", router);
-}
+  router.get("/home", (req, res) => {
+    return res.send("Welcome");
+  });
 
-module.exports = initWebRoutes; 
+  return app.use("/", router);
+};
+
+module.exports = initWebRoutes;
