@@ -24,9 +24,6 @@ let postCRUD = async (req, res) => {
 };
 let displayCRUD = async (req, res) => {
   let data = await CRUDService.getAllUser();
-  // console.log("------------------");
-  // console.log(data);
-  // console.log("------------------");
   return res.render("DisplayCRUD.ejs", {
     dataTable: data,
   });
@@ -56,6 +53,7 @@ let deleteCRUD = async (req, res) => {
     return res.send("User not found");
   }
 };
+
 module.exports = {
   getHomePage: getHomePage,
   getaboutPage: getaboutPage,
