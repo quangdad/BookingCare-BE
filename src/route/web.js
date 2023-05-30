@@ -13,6 +13,7 @@ let initWebRoutes = (app) => {
   router.post("/update-crud", homeController.updateCRUD);
   router.get("/delete-crud", homeController.deleteCRUD);
   router.post("/api/login", userController.handleLogin);
+  router.get("/api/get-all-users", userController.handleGetAllUsers);
 
   // router.get("/home", (req, res) => {
   //   return res.send("Welcome");

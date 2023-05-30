@@ -6,9 +6,8 @@ let handleLogin = async (req, res, next) => {
 
   if (!email || !password) {
     res.status(500).json({
-      // err: userData.err,
-      // mes: userData.mes,
-      // user: userData.user,
+      err: 1,
+      mes: "Missing inputs parameter!",
     });
     return;
   } else {
@@ -23,6 +22,25 @@ let handleLogin = async (req, res, next) => {
 
   next();
 };
+let handleGetAllUsers = async (req, res) => {
+  let id = req.body.id;
+  console.log("id: ", id);
+  let user = await userService.getAllUsers(id);
+  if (id) {
+    return res.status(200).json({
+      err: 0,
+      mes: "OK",
+      user,
+    });
+  }
+  return res.status(500).json({
+    err: 1,
+    mes: "Missing required parameter!",
+    user: [],
+  });
+};
+
 module.exports = {
   handleLogin: handleLogin,
+  handleGetAllUsers: handleGetAllUsers,
 };
