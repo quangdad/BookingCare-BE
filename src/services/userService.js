@@ -85,7 +85,7 @@ let getAllUsers = (userId) => {
     } catch (e) {
       reject(e);
     }
-    console.log(user);
+    // console.log(user);
   });
 };
 
