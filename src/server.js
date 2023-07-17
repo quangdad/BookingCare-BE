@@ -1,12 +1,12 @@
-import express from "express";
 import bodyParser from "body-parser";
 import viewEngine from "./config/viewEngine";
 import initWebRoutes from "./route/web";
-import cors from "cors";
+const express = require('express');
+const cors = require('cors');
 // import connectDB from "./config/connectDB";
 require("dotenv").config();
 
-let app = express();
+const app = express();
 const corsOrigin = {
   origin: "http://localhost:3000", //or whatever port your frontend is using
   credentials: true,
