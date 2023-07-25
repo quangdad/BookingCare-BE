@@ -2,23 +2,35 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("allcodes", {
+    await queryInterface.createTable("editors", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      keyMap: {
+      contentHTML: {
+        allowNull: false,
+        type: Sequelize.TEXT("long"),
+      },
+      contentMarkdown: {
+        allowNull: false,
+        type: Sequelize.TEXT("long"),
+      },
+      description: {
+        allowNull: true,
+        type: Sequelize.TEXT("long"),
+      },
+      doctorId: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
-      type: {
+      specialtyId: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
-      valueEN: {
-        type: Sequelize.STRING,
-      },
-      valueVI: {
+      clinicId: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       createdAt: {
@@ -32,6 +44,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("allcodes");
+    await queryInterface.dropTable("editors");
   },
 };

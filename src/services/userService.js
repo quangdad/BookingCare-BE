@@ -121,8 +121,9 @@ let createNewUser = async (data) => {
           address: data.address,
           phonenumber: data.phonenumber,
           gender: data.gender,
-          roleID: data.roleId,
-		  positionId: data.positionId
+          roleID: data.role,
+          positionId: data.position,
+          image: data.avatar,
         });
         resovle({
           err: 0,
@@ -157,6 +158,7 @@ let deleteUser = async (userId) => {
 };
 
 let updateUser = async (putData) => {
+  console.log("put data", putData);
   return new Promise(async (resolve, reject) => {
     try {
       if (!putData.id) {
@@ -174,7 +176,11 @@ let updateUser = async (putData) => {
         user.firstName = putData.firstName;
         user.lastName = putData.lastName;
         user.address = putData.address;
-        user.phonenumber = putData.phoneNumber;
+        user.phonenumber = putData.phonenumber;
+        user.gender = putData.gender;
+        user.roleID = putData.roleId;
+        user.positionId = putData.positionId;
+        user.image = putData.avatar;
         await user.save();
         resolve({
           err: 0,
