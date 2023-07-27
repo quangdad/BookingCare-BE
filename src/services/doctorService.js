@@ -53,7 +53,77 @@ let getAllDoctor = () => {
     }
   });
 };
+
+let saveInfoDoctorService = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!data.doctorId || !data.contentHTML || !data.contentMarkdown) {
+        resolve({
+          err: 1,
+          mes: "Missing parameter!",
+        });
+      } else {
+        await db.Editor.create({
+          contentHTML: data.contentHTML,
+          contentMarkdown: data.contentMarkdown,
+          description: data.description,
+          doctorId: data.doctorId,
+        });
+        resolve({
+          err: 0,
+          mes: "Save info succeed!",
+        });
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+let getInfoDoctor = (inputId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!inputId) {
+        resolve({
+          err: 1,
+          mes: "Missing parameter!",
+        });
+      } else {
+        let data = await db.User.findOne({
+          where: { id: inputId },
+          attributes: {
+            exclude: ["password"],
+          },
+          include: [
+            {
+              model: db.Editor,
+              attributes: ["description", "contentMarkdown", "contentHTML"],
+            },
+            {
+              model: db.Allcode,
+              as: "positionData",
+              attributes: ["valueEn", "valueVi"],
+            },
+          ],
+          raw: false,
+          nest: true,
+        });
+        if (data && data.image) {
+          data.image = new Buffer(data.image, "base64").toString("binary");
+        }
+        resolve({
+          err: 0,
+          data: data,
+        });
+      }
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
 module.exports = {
   getTopDoctorHome: getTopDoctorHome,
   getAllDoctor: getAllDoctor,
+  saveInfoDoctorService: saveInfoDoctorService,
+  getInfoDoctor: getInfoDoctor,
 };

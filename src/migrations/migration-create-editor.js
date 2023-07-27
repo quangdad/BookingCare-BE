@@ -22,15 +22,15 @@ module.exports = {
         type: Sequelize.TEXT("long"),
       },
       doctorId: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING,
       },
       specialtyId: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING,
       },
       clinicId: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.STRING,
       },
       createdAt: {

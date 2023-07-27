@@ -162,7 +162,6 @@ let updateUser = async (putData) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!putData.id) {
-        console.log("check data nodejs: ", putData);
         resolve({
           err: 2,
           mes: "User isn't exist",

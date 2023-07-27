@@ -25,9 +25,7 @@ let handleLogin = async (req, res, next) => {
 };
 let handleGetAllUsers = async (req, res) => {
   let id = req.query.id;
-  console.log("id: ", id);
   let user = await userService.getAllUsers(id);
-  console.log("user: ", user);
   if (id) {
     return res.status(200).json({
       err: 0,
@@ -50,7 +48,6 @@ let handleCreateNewUser = async (req, res) => {
 let handleEditUser = async (req, res) => {
   let data = req.body;
   if (data) {
-    console.log("check data controller", data);
     let mes = await userService.updateUser(data);
     return res.status(200).json(mes);
   }
@@ -70,7 +67,6 @@ let handleDeleteUser = async (req, res) => {
 let getAllCode = async (res, req) => {
   try {
     let type = await userService.getAllCodeService(res.query.type);
-    console.log("data", type);
     return req.status(200).json(type);
   } catch (e) {
     return req.status(500).json({
@@ -79,6 +75,7 @@ let getAllCode = async (res, req) => {
     });
   }
 };
+
 module.exports = {
   handleLogin: handleLogin,
   handleGetAllUsers: handleGetAllUsers,
