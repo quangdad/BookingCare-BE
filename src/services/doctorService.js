@@ -55,20 +55,36 @@ let getAllDoctor = () => {
 };
 
 let saveInfoDoctorService = (data) => {
+	console.log("action",data.action)
   return new Promise(async (resolve, reject) => {
     try {
-      if (!data.doctorId || !data.contentHTML || !data.contentMarkdown) {
+      if (!data.doctorId || !data.contentHTML || !data.contentMarkdown || !data.action) {
         resolve({
           err: 1,
           mes: "Missing parameter!",
         });
       } else {
+		  if(data.action == 'CREATE'){
         await db.Editor.create({
           contentHTML: data.contentHTML,
           contentMarkdown: data.contentMarkdown,
           description: data.description,
           doctorId: data.doctorId,
         });
+		  }
+		  else if(data.action == 'EDIT'){
+			let editMarkdown = await db.Editor.findOne({
+				where: {doctorId: data.doctorId},
+				raw: false
+			})
+			if(editMarkdown){
+				editMarkdown.contentHTML= data.contentHTML;
+				editMarkdown.contentMarkdown= data.contentMarkdown;
+				editMarkdown.description= data.description;
+		  
+				await editMarkdown.save();
+			}
+		  }
         resolve({
           err: 0,
           mes: "Save info succeed!",
